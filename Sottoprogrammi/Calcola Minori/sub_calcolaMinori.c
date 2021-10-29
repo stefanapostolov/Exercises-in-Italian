@@ -35,4 +35,5 @@ void calcolaMinori(int input[], int dim1, int output[], int * dim2){
 	}
 
 	*dim2 = dim1;
+	
 }
