@@ -1,6 +1,7 @@
 /*
 	
-	Si scriva un sottoprogramma che ricevuti in ingresso due numeri interi (sicuramente positivi o nulli) ritorni 1 se i due numeri sono coprimi, 0 altrimenti.
+	Si scriva un sottoprogramma che ricevuti in ingresso due numeri interi (sicuramente positivi o nulli) ritorni 1 se i due numeri sono coprimi, 
+	0 altrimenti.
 	Due numeri si dicono coprimi se non hanno divisori comuni a parte 1; 1 è coprimo con ogni numero, mentre 0 è coprimo solo di 1.
 	
 */
