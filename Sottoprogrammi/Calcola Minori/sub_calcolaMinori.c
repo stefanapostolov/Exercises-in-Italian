@@ -1,6 +1,8 @@
 /*
 
-	Si scriva un sottoprogramma calcolaMinori che ricevuto in ingresso un array di valori interi val (e qualsiasi altro paramet- ro ritenuto strettamente 		necessario), e trasmetta al chiamante un secondo array min, tale per cui l’elemento i-esimo min[i] corrisponde al numero di valori di val minori di 		val[i]. 
+	Si scriva un sottoprogramma calcolaMinori che ricevuto in ingresso un array di valori interi val (e qualsiasi altro paramet- 
+	ro ritenuto strettamente necessario), e trasmetta al chiamante un secondo array min, tale per cui l’elemento i-esimo min[i] 
+	corrisponde al numero di valori di val minori di val[i]. 
 	Esempi:
 	ingresso: [8,1,2,2,3] uscita: [4,0,1,1,3] ingresso: [7,7,7,7] uscita: [0,0,0,0]
 
