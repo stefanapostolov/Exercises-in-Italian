@@ -1,17 +1,18 @@
+
 /*
 
 	Si definiscano due tipi di dato adatti a rappresentare triangoli generici e rettangoli con i lati paralleli agli assi:
 	Un triangolo sia definito come tre punti nel piano
-	Un rettangolo coi lati paralleli agli assi sia invece definito da una coppia di punti: il suo vertice in alto a sinistra (NO, «NordOvest») e il 
-  suo vertice in basso a destra (SE, «SudEst»).
+	Un rettangolo coi lati paralleli agli assi sia invece definito da una coppia di punti: il suo vertice in alto a sinistra (NO, «NordOvest»)
+	e il suo vertice in basso a destra (SE, «SudEst»).
 
-	Esercizio 1a:
+	Esercizio:
 	
 	Si scriva quindi un programma che stabilisca se un triangolo è: 
 	"ragionevolmente" isoscele (o pseudoisoscele)
 	"ragionevolmente" equilatero (o pseudoequilatero)
-	Il programma deve verificare se valgono le relative proprietà (lunghezza dei lati) a meno di una ragionevole approssimazione in percentuale, da 
-  impostarsi come costante globale.
+	Il programma deve verificare se valgono le relative proprietà (lunghezza dei lati) a meno di una ragionevole approssimazione in percentuale,
+	da impostarsi come costante globale.
 
 
 */
@@ -32,90 +33,21 @@ typedef struct Triangolo_s {
 	Punto C;
 } Triangolo;
  
+float distanza(Punto p1,Punto p2);
  
-float distanza( Punto p1, Punto p2 ) 
-{
-	float dx = p1.x - p2.x;
-	float dy = p1.y - p2.y;
-	return sqrtf(dx * dx + dy * dy);
-}
+int degenere(Triangolo t);
+
+Punto leggiPunto(char nomePunto);
+
+Triangolo leggiTriangolo();
  
-int degenere( Triangolo t ) 
-{
-	/* Per semplicità al momento si accetta praticamente qualsiasi triangolo, 
-	poi si potranno sempre stabilire regole più complete. 
-	Controllo semplicemente che non ci siano punti totalmente sovrapposti */
-	if( distanza( t.A, t.B ) == 0 ||
-		distanza( t.A, t.C ) == 0 ||
-		distanza( t.B, t.C ) == 0)
-		return 1;
- 
-	return 0;
-}
- 
-Punto leggiPunto(char nomePunto) 
-{
-	Punto p;
- 
-	printf("Coordinata x del punto %c: ", nomePunto);
-	scanf("%f", &p.x);
-	printf("Coordinata y del punto numero %c: ", nomePunto);
-	scanf("%f", &p.y);
- 
-	return p;
-}
- 
-Triangolo leggiTriangolo() 
-{
-	Triangolo t;
-	int deg;
-	do {
-		t.A = leggiPunto('A');
-		t.B = leggiPunto('B');
-		t.C = leggiPunto('C');
-		deg = degenere(t);
-		if( deg )
-			 printf("\n Le coordinate non definiscono un Triangolo valido. Riproviamo.\n");
-	} while( deg );	
-	return t;
-}
- 
-void stampaTri( Triangolo t ) 
-{
-	printf("\n");
-	printf(" punto A [ %2.2f, %2.2f ]\n", t.A.x, t.A.y);
-	printf(" punto B [ %2.2f, %2.2f ]\n", t.B.x, t.B.y);
-	printf(" punto C [ %2.2f, %2.2f ]\n", t.C.x, t.C.y);
-}
- 
-/* Definisco due grandezze float come pseudouguali se la differenza 
-	 è inferiore a SOGLIA % della maggiore delle due grandezze */ 
-int pseudouguali(float a, float b) 
-{
-	float max, min;
-	if( a == b )     /* Se sono uguali, non serve calcolare */
-		return 1;
-	if( a * b == 0.0 )  /* se una delle due è 0, non rischio la divisione, tanto... */
-		return 0;       /* ...se uno e' 0 e l'altro no la differenza è del 100% */
- 
-	min = a;
-	max = b;
-	if(min > max) {
-		min = b;
-		max = a;
-	}
- 
-	return (max-min) / max * 100 < SOGLIA;
-}
- 
-/* funzione per il calcolo dell'area del triangolo usando la formula di Erone */
-float erone( float a, float b, float c ) 
-{
-	float p = (a+b+c) / 2;
-	return sqrtf(p*(p-a)*(p-b)*(p-c));
-}
- 
-int main() 
+void stampaTri(Triangolo t);
+
+int pseudouguali(float a, float b);
+
+float erone(float a, float b, float c);
+
+int main(int argc, char * argv[]) 
 {
 	Triangolo t;
 	int coppie_lati_uguali;
@@ -155,4 +87,87 @@ int main()
  
 	return 0;
 }
+
+float distanza(Punto p1, Punto p2) 
+{
+	float dx = p1.x - p2.x;
+	float dy = p1.y - p2.y;
+	return sqrtf(dx * dx + dy * dy);
+}
+ 
+int degenere(Triangolo t) 
+{
+	/* Per semplicità al momento si accetta praticamente qualsiasi triangolo, 
+	poi si potranno sempre stabilire regole più complete. 
+	Controllo semplicemente che non ci siano punti totalmente sovrapposti */
+	if( distanza( t.A, t.B ) == 0 ||
+		distanza( t.A, t.C ) == 0 ||
+		distanza( t.B, t.C ) == 0)
+		return 1;
+ 
+	return 0;
+}
+ 
+Punto leggiPunto(char nomePunto) 
+{
+	Punto p;
+ 
+	printf("Coordinata x del punto %c: ", nomePunto);
+	scanf("%f", &p.x);
+	printf("Coordinata y del punto numero %c: ", nomePunto);
+	scanf("%f", &p.y);
+ 
+	return p;
+}
+ 
+Triangolo leggiTriangolo() 
+{
+	Triangolo t;
+	int deg;
+	do {
+		t.A = leggiPunto('A');
+		t.B = leggiPunto('B');
+		t.C = leggiPunto('C');
+		deg = degenere(t);
+		if( deg )
+			 printf("\n Le coordinate non definiscono un Triangolo valido. Riproviamo.\n");
+	} while( deg );	
+	return t;
+}
+ 
+void stampaTri(Triangolo t) 
+{
+	printf("\n");
+	printf(" punto A [ %2.2f, %2.2f ]\n", t.A.x, t.A.y);
+	printf(" punto B [ %2.2f, %2.2f ]\n", t.B.x, t.B.y);
+	printf(" punto C [ %2.2f, %2.2f ]\n", t.C.x, t.C.y);
+}
+ 
+/* Definisco due grandezze float come pseudouguali se la differenza 
+	 è inferiore a SOGLIA % della maggiore delle due grandezze */ 
+int pseudouguali(float a, float b) 
+{
+	float max, min;
+	if( a == b )     /* Se sono uguali, non serve calcolare */
+		return 1;
+	if( a * b == 0.0 )  /* se una delle due è 0, non rischio la divisione, tanto... */
+		return 0;       /* ...se uno e' 0 e l'altro no la differenza è del 100% */
+ 
+	min = a;
+	max = b;
+	if(min > max) {
+		min = b;
+		max = a;
+	}
+ 
+	return (max-min) / max * 100 < SOGLIA;
+}
+ 
+/* funzione per il calcolo dell'area del triangolo usando la formula di Erone */
+float erone( float a, float b, float c ) 
+{
+	float p = (a+b+c) / 2;
+	return sqrtf(p*(p-a)*(p-b)*(p-c));
+}
+
  
