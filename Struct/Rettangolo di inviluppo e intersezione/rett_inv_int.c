@@ -1,6 +1,6 @@
 /*
 
-	Si scriva poi un programma che, dati due rettangoli con i 
+	Si scriva un programma che, dati due rettangoli con i 
 	lati paralleli agli assi: 
 	
 	Verifichi che i due rettangoli dati siano “corretti” (ovvero che il vertice di 
